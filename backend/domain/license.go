@@ -21,12 +21,28 @@ type BaseEditionLimitation struct {
 	AllowOpenAIBotSettings bool  `json:"allow_open_ai_bot_settings"` // 支持问答机器人
 	AllowMCPServer         bool  `json:"allow_mcp_server"`           // 支持创建MCP Server
 	AllowNodeStats         bool  `json:"allow_node_stats"`           // 支持文档统计
+	AllowAiFeedback        bool  `json:"allow_ai_feedback"`          // 支持AI反馈
+	AllowContribute        bool  `json:"allow_contribute"`           // 支持文档贡献
+	AllowDocumentFeedback  bool  `json:"allow_document_feedback"`    // 支持文档反馈
 }
 
 var baseEditionLimitationDefault = BaseEditionLimitation{
-	MaxKb:    1,
-	MaxAdmin: 1,
-	MaxNode:  300,
+	MaxKb:                  10000,
+	MaxNode:                100000,
+	MaxSSOUser:             10000,
+	MaxAdmin:               10000,
+	AllowAdminPerm:         true,
+	AllowCustomCopyright:   true,
+	AllowCommentAudit:      true,
+	AllowAdvancedBot:       true,
+	AllowWatermark:         true,
+	AllowCopyProtection:    true,
+	AllowOpenAIBotSettings: true,
+	AllowMCPServer:         true,
+	AllowNodeStats:         true,
+	AllowAiFeedback:        true,
+	AllowContribute:        true,
+	AllowDocumentFeedback:  true,
 }
 
 func GetBaseEditionLimitation(c context.Context) BaseEditionLimitation {

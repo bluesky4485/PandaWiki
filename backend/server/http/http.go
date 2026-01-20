@@ -18,6 +18,7 @@ import (
 	_ "github.com/chaitin/panda-wiki/docs"
 
 	"github.com/chaitin/panda-wiki/config"
+	"github.com/chaitin/panda-wiki/consts"
 	"github.com/chaitin/panda-wiki/log"
 	PWMiddleware "github.com/chaitin/panda-wiki/middleware"
 )
@@ -61,6 +62,15 @@ func NewEcho(
 	e := echo.New()
 	e.HideBanner = true
 	e.HidePort = true
+
+	e.Use(func(next echo.HandlerFunc) echo.HandlerFunc {
+		return func(c echo.Context) error {
+			c.Set("edition", consts.LicenseEditionEnterprise)
+			ctx := context.WithValue(c.Request().Context(), consts.ContextKeyEdition, consts.LicenseEditionEnterprise)
+			c.SetRequest(c.Request().WithContext(ctx))
+			return next(c)
+		}
+	})
 
 	e.Binder = &MyBinder{}
 
